@@ -19,4 +19,20 @@
 .nav-link {
     cursor: default;
 }
+
+.flex-container {
     
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: white;
+    width: 400px;
+    height: 400px;
+}
+
+
+.flex-container2 {
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: black;
+    width: 
+}
