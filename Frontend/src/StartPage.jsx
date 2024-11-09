@@ -2,6 +2,7 @@ import React from "react";
 import "./StartPage.css"
 import "./DataVisPage"
 import NavBar from "./NavBar";
+import TechStack from "./TechStack";
 
 export default function StartPage() {
     return (
@@ -13,10 +14,8 @@ export default function StartPage() {
             
             </div>
             
-<<<<<<< HEAD
             <h2 className="project-title">Stock Forecasting Tool</h2>
-=======
->>>>>>> 15ee456a5fee505ab9bcd09b20cab0b560e4036b
+            <TechStack />
 
 
         </div>
