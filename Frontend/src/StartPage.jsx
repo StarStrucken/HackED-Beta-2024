@@ -7,7 +7,10 @@ export default function StartPage() {
     return (
         <div className="page">
             <NavBar />
-            <p className="project-title">Global Renewable Energy Forecasting and Optimization Tool</p>
+            
+            <h2 className="project-title">Global Renewable Energy Forecasting and Optimization Tool</h2>
+
+
         </div>
     )
 }

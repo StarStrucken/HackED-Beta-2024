@@ -2,7 +2,7 @@
     margin: auto;
     display: flex;
     justify-content: center;
-    background-image: linear-gradient(#6441a5, #2a0845);
+    background-image: linear-gradient(lightblue 10%, blue 90%);
     height: max-content;
     height: 100%;
     height: 100vh;
@@ -12,7 +12,8 @@
     font-size: 40px;
     text-emphasis: bold;
     margin-top: 100px;
-    font-family: monospace;
+    font-family: monospace; 
+    color: black;
 }
 
 .nav-link {
