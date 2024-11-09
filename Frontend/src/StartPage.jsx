@@ -13,10 +13,6 @@ export default function StartPage() {
             
             </div>
             
-<<<<<<< HEAD
-            <h2 className="project-title">Stock Forecasting Tool</h2>
-=======
->>>>>>> 15ee456a5fee505ab9bcd09b20cab0b560e4036b
 
 
         </div>
