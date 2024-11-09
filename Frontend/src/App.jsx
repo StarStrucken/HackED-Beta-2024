@@ -2,7 +2,7 @@ import StartPage from './StartPage';
 
 function App() {
   return (  
-    <div className="App">
+    <div>
       <StartPage />
   </div>
   )
