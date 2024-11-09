@@ -5,7 +5,7 @@ import "./DataVisPage.css"
 export default function DataVisPage(){
     return (
         <div>
-            <h1> Data Visualization </h1>
+            <h1> </h1>
         </div>
     )
 

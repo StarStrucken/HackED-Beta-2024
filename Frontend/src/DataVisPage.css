@@ -1,0 +1,13 @@
+.page {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    background-image: linear-gradient(#6441a5, #2a0845);
+    height: max-content;
+}
+
+.project-title {
+    font-size: 40px;
+    text-emphasis: bold;
+    margin-top: 100px;
+}

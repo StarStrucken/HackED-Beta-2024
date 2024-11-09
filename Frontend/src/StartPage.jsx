@@ -1,12 +1,13 @@
 import React from "react";
 import "./StartPage.css"
-import NavBar from "./NavBar";
+import "./DataVisPage"
+import DataVisPage from "./DataVisPage";
 
 export default function StartPage() {
     return (
         
         <div className="page">
-            <NavBar />
+            <DataVisPage> </DataVisPage>
             <p className="project-title">Global Renewable Energy Forecasting and Optimization Tool</p>
         </div>
     )
