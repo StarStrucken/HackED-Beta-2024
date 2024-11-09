@@ -4,16 +4,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { DiCodeigniter } from "react-icons/di";
 import NavDropdown from "react-bootstrap/NavDropdown";
 export default function NavBar() {
-    const showTeam = () => {
-        console.log("team");
-    }
-
-    const showTechStack = () => {
-        console.log("tech stack");
-    }
-
-
+    const goToVisualization = () => {
+        window.location.href = "/visualization";
+      };
+  
+      const goToForecast = () => {
+        window.location.href = "/forecast";
+      };
   return (
+
     <>
       <Navbar
         fixed="top"
@@ -34,21 +33,22 @@ export default function NavBar() {
           </Nav.Link>
 
           <Nav.Link href="/">
-            <p style={{display: "flex", alignItems: "center", marginRight: "950px", fontSize: "30px", fontFamily: "monospace", marginTop: "5px"}}>IDC</p>
+            <p style={{display: "flex", alignItems: "center", marginRight: "920px", fontSize: "30px", fontFamily: "monospace", marginTop: "5px"}}>IDC</p>
           </Nav.Link>
 
 
-          <Nav.Link href="/">
-            <p style={{display: "flex", alignItems: "center", fontSize: "20px", fontFamily: "monospace", marginTop: "10px"}}>Visualization</p>
+          <Nav.Link href="/visualization">
+            <p style={{display: "flex", alignItems: "center", fontSize: "20px", fontFamily: "monospace", marginTop: "10px"}} onclick={goToVisualization}>Visualization</p>
           </Nav.Link>
 
-          <Nav.Link href="/">
-            <p style={{display: "flex", alignItems: "center", fontSize: "20px", fontFamily: "monospace", marginTop: "10px"}}>Forecast</p>
+          <Nav.Link href="/forecast">
+            <p style={{display: "flex", alignItems: "center", fontSize: "20px", fontFamily: "monospace", marginTop: "10px"}} onclick={goToForecast}>Forecast</p>
           </Nav.Link>
 
           <NavDropdown title="About" id="about-dropdown" style={{ fontSize: "20px", fontFamily: "monospace", marginTop: "10px"}}>
-            <NavDropdown.Item style={{ fontSize: "20px", fontFamily: "monospace", marginBottom: "10px"}} onclick={showTeam}>Team</NavDropdown.Item>
-            <NavDropdown.Item style={{ fontSize: "20px", fontFamily: "monospace"}} onclick={showTechStack}>Tech Stack</NavDropdown.Item>
+            <NavDropdown.Item style={{ fontSize: "20px", fontFamily: "monospace", marginBottom: "10px"}} href="#team">Team</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item style={{ fontSize: "20px", fontFamily: "monospace"}} href="#tech">Tech Stack</NavDropdown.Item>
           </NavDropdown>
 
         
