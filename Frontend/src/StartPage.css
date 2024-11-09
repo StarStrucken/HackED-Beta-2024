@@ -1,0 +1,9 @@
+.page {
+    margin: auto;
+    text-align: center;
+}
+
+.project-title {
+    font-size: 40px;
+    text-emphasis: bold;
+}
