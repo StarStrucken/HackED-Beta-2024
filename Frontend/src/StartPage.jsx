@@ -1,4 +1,3 @@
-import React from "react";
 import "./StartPage.css"
 import "./DataVisPage"
 import NavBar from "./NavBar";
