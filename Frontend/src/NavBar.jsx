@@ -43,7 +43,7 @@ export default function NavBar() {
         justifyContent: "space-between", 
         alignItems: "center",
       }}
-      onClick={(e) => e.stopPropagation()} // Prevent unintended click propagation on Navbar.
+      onClick={(e) => e.stopPropagation()} 
     >
       <div style={{ display: "flex", alignItems: "center" }}>
         <div

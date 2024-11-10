@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -15,7 +15,7 @@ import './LineChartVis.css';
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const LineChartVis = () => {
-  const [ticker, setTicker] = useState('');
+  const [ticker, setTicker] = useState('META');  // Default ticker set to "META"
   const [chartData, setChartData] = useState({
     labels: [],
     datasets: [
@@ -99,11 +99,18 @@ const LineChartVis = () => {
     setTimeout(() => setIsCooldown(false), 1000);
   };
 
+  useEffect(() => {
+    const initializeChartData = async () => {
+      await fetchForecastData(ticker);
+    };
+    initializeChartData();
+  }, []);
+
   const stockColumns = ['Open', 'High', 'Low', 'Close'];
 
   return (
     <div className="chart-container">
-      <h2 className="h2"style={{  color: 'white', marginTop: '100px' }}>Select a Stock Column</h2>
+      <h2 className="h2" style={{ color: 'white', marginTop: '100px' }}>Select a Stock Column</h2>
       <div className="button-container">
         {stockColumns.map((maangTicker) => (
           <button
