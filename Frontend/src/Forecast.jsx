@@ -1,32 +1,28 @@
 import "./Forecast.css";
 import NavBar from "./NavBar";
-import axios from "axios";
+import LineChart from "./Line";
 
 export default function Forecast() {
-    const getBackendResponse = async (event) => {
-        event.preventDefault(); // Prevent any default behavior
-    
-        console.log("Button clicked");
-    
-        try {
-            const response = await axios.get("http://localhost:5001/forecast", {
-                params: { ticker: "AAPL" }, // Example ticker for testing
-            });
-            console.log("Response:", response.data);
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    };
-
-    return (
-        <div className="page">
-            <NavBar />
-            <div className="forecast-page">
-                <h1>Forecast Page</h1>
-                <button type="button" onClick={getBackendResponse}>
-                    Predict
-                </button>
-            </div>
+  return (
+    <div className="forecast-page">
+      <NavBar />
+      <LineChart />
+      <div className="container-3">
+        <div className="box-3">
+          <p>Understanding Adj Close Price:</p>A trend in adjusted closing
+          prices represents the general direction in which a stock’s price is
+          moving over a specific period. An upward slope on the graph indicates
+          that the stock's adjusted closing prices are increasing, suggesting a
+          period of growth or bullish sentiment in the market. Conversely, a
+          downward slope signifies a decline in prices, which can be interpreted
+          as a bearish trend, where the market is losing confidence in the
+          stock. A flat or horizontal trend indicates stability, where the
+          stock's price is neither significantly increasing nor decreasing,
+          often reflecting a neutral market sentiment. Analyzing these trends
+          helps investors understand the overall performance and momentum of a
+          stock.
         </div>
-    );
+      </div>
+    </div>
+  );
 }

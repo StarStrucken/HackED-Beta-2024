@@ -8,9 +8,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
   const navigate = useNavigate();
-
   const goToHome = () => navigate("/");
-  const goToVisualization = () => navigate("/visualization");
+  const goToVisualization = () => navigate("/visualize");
   const goToForecast = () => navigate("/forecast");
 
   return (
@@ -21,12 +20,11 @@ export default function NavBar() {
         color: "black",
         padding: "5px 10px",
         display: "flex",
-        justifyContent: "space-between", // Space out left and right sections
+        justifyContent: "space-between", 
         alignItems: "center",
       }}
-      onClick={(e) => e.stopPropagation()} // Prevent unintended click propagation on Navbar
+      onClick={(e) => e.stopPropagation()} 
     >
-      {/* Left side (logo and title) */}
       <div style={{ display: "flex", alignItems: "center" }}>
         <div onClick={goToHome} style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
           <DiCodeigniter
