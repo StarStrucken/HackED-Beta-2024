@@ -4,90 +4,100 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { DiCodeigniter } from "react-icons/di";
 import CustomNavDropdown from "./CustomNavDropDown";
 import "./NavBar.css";
+import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
-  const goToVisualization = () => {
-    window.location.href = "/visualization";
-  };
+  const navigate = useNavigate();
 
-  const goToForecast = () => {
-    window.location.href = "/forecast";
-  };
+  const goToHome = () => navigate("/");
+  const goToVisualization = () => navigate("/visualization");
+  const goToForecast = () => navigate("/forecast");
+
   return (
-    <>
-      <Navbar
-        fixed="top"
-        style={{
-          backgroundColor: "linear-gradient(#6441a5, #2a0845)",
-          color: "black",
-          padding: "5px 10px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <Nav>
-            <Nav.Link href="/" className="nav-link">
-              <DiCodeigniter
-                size={40}
-                color="white"
-                style={{ width: "30px", marginLeft: "10px", marginTop: "5px" }}
-              />
-            </Nav.Link>
+    <Navbar
+      fixed="top"
+      style={{
+        backgroundColor: "linear-gradient(#6441a5, #2a0845)",
+        color: "black",
+        padding: "5px 10px",
+        display: "flex",
+        justifyContent: "space-between", // Space out left and right sections
+        alignItems: "center",
+      }}
+      onClick={(e) => e.stopPropagation()} // Prevent unintended click propagation on Navbar
+    >
+      {/* Left side (logo and title) */}
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <div onClick={goToHome} style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
+          <DiCodeigniter
+            size={40}
+            color="white"
+            style={{ marginLeft: "10px", marginBottom: "15px" }}
+          />
+        </div>
 
-            <Nav.Link href="/">
-              <p
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginRight: "910px",
-                  fontSize: "30px",
-                  fontFamily: "monospace",
-                  marginTop: "5px",
-                  color: "white",
-                }}
-              >
-                IDC
-              </p>
-            </Nav.Link>
+        <div
+          onClick={goToHome}
+          style={{ cursor: "pointer", display: "flex", alignItems: "center", color: "white", marginLeft: "10px" }}
+        >
+          <p
+            style={{
+              fontSize: "30px",
+              fontFamily: "monospace",
+              color: "white",
+              marginTop: "10px",
+            }}
+          >
+            IDC
+          </p>
+        </div>
+      </div>
 
-            <Nav.Link href="/visualization">
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <Nav>
+          <Nav.Link>
+            <span
+              onClick={goToVisualization}
+              style={{ cursor: "pointer", color: "white", fontSize: "20px" }}
+            >
               <p
                 style={{
                   display: "flex",
                   alignItems: "center",
                   fontSize: "20px",
                   fontFamily: "monospace",
-                  marginTop: "10px",
+                  margin: "0",
                   color: "white",
                 }}
-                onClick={goToVisualization}
               >
                 Visualization
               </p>
-            </Nav.Link>
+            </span>
+          </Nav.Link>
 
-            <Nav.Link href="/forecast">
+          <Nav.Link>
+            <span
+              onClick={goToForecast}
+              style={{ cursor: "pointer", color: "white", fontSize: "20px" }}
+            >
               <p
                 style={{
                   display: "flex",
                   alignItems: "center",
                   fontSize: "20px",
                   fontFamily: "monospace",
-                  marginTop: "10px",
+                  margin: "0",
                   color: "white",
                 }}
-                onClick={goToForecast}
               >
                 Forecast
               </p>
-            </Nav.Link>
+            </span>
+          </Nav.Link>
 
-            <CustomNavDropdown />
-          </Nav>
-        </div>
-      </Navbar>
-    </>
+          <CustomNavDropdown />
+        </Nav>
+      </div>
+    </Navbar>
   );
 }

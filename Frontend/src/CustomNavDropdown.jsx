@@ -19,7 +19,6 @@ export default function CustomNavDropdown() {
         style={{
           fontSize: "20px",
           fontFamily: "monospace",
-          marginTop: "10px",
           height: "40px"
         }}
       >
