@@ -21,18 +21,17 @@
 }
 
 .flex-container {
-    
-    display: flex;
-    flex-wrap: nowrap;
+    display: flex; 
+    gap: 200px;     
+}
+
+.box {
     background-color: white;
-    width: 400px;
-    height: 400px;
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+    width: 300px;
+    height: 200px;
 }
 
 
-.flex-container2 {
-    display: flex;
-    flex-wrap: nowrap;
-    background-color: black;
-    width: 
-}

@@ -1,13 +1,14 @@
-import React from "react";
+import React from 'react';
+import LineChart from './Line';
 
 import "./DataVisPage.css"
 
 export default function DataVisPage() {
     return (
         
-        <div className="page1">
-            
-            <p className="Data-title"> Data below </p>
+        <div>
+            <h1>Forecast Adjusted close price</h1>
+            <LineChart />
         </div>
     )
 }
