@@ -13,10 +13,15 @@ export default function NavBar() {
   const goToVisualization = () => navigate("/visualize");
   const goToForecast = () => navigate("/forecast");
 
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  // Load dark mode state from localStorage
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    return localStorage.getItem("isDarkMode") === "true";
+  });
 
   const handleToggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
+    const newDarkMode = !isDarkMode;
+    setIsDarkMode(newDarkMode);
+    localStorage.setItem("isDarkMode", newDarkMode); // Save to localStorage
   };
 
   useEffect(() => {
