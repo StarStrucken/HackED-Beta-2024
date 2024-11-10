@@ -1,11 +1,14 @@
 import "./DataVisPage.css"
+import LineChartVis from "./LineChartVis"
+import NavBar from "./NavBar"
+import Histogram from "./Histogram"
 
 export default function DataVisPage() {
     return (
-        
-        <div>
-            <h1>Forecast Adjusted close price</h1>
-            <LineChart />
+        <div className="visualize-page">
+            <NavBar />
+            <LineChartVis />
+            <Histogram />
         </div>
     )
 }
