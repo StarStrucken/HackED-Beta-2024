@@ -7,5 +7,7 @@
     height: 200vh;
 }
 
-
+.dark-mode .visualize-page {
+    background-image: linear-gradient(#50505a 0%, #001418 100%) !important; /* Dark mode gradient */
+  }
 
