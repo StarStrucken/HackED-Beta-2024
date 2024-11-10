@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Line } from 'react-chartjs-2';
+import { useState, useEffect } from "react";
+import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,21 +9,31 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
-import './LineChartVis.css';
+} from "chart.js";
+import "./LineChartVis.css";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
-const LineChartVis = () => {
-  const [ticker, setTicker] = useState('META');  // Default ticker set to "META"
+const LineChart = () => {
+  const [ticker, setTicker] = useState("META");
+  const [inputTicker, setInputTicker] = useState(""); 
+  const [column, setColumn] = useState("Adj Close");
   const [chartData, setChartData] = useState({
     labels: [],
     datasets: [
       {
-        label: 'Revenue ($)',
+        label: `${column} ($)`,
         data: [],
-        borderColor: 'rgba(75, 192, 192, 1)',
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: "blue",
+        backgroundColor: "rgba(0, 0, 255, 0.2)",
         borderWidth: 2,
         tension: 0.4,
         fill: true,
@@ -31,6 +41,7 @@ const LineChartVis = () => {
     ],
   });
   const [isCooldown, setIsCooldown] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const options = {
     responsive: true,
@@ -41,8 +52,8 @@ const LineChartVis = () => {
       },
       title: {
         display: true,
-        text: `Monthly Forecast for ${ticker}`,
-        color: 'white',
+        text: `Forecast for ${ticker.toUpperCase()} - ${column}`,
+        color: "white",
         font: {
           size: 18,
         },
@@ -50,84 +61,143 @@ const LineChartVis = () => {
     },
     scales: {
       x: {
-        ticks: { color: 'white' },
-        grid: { color: '#444' },
-        title: { display: true, text: 'Months', color: 'white' },
+        ticks: { color: "white" },
+        grid: { color: "#444" },
+        title: { display: true, text: "Trading Day", color: "white" },
       },
       y: {
-        beginAtZero: true,
-        ticks: { color: 'white' },
-        grid: { color: '#444' },
-        title: { display: true, text: 'Revenue ($)', color: 'white' },
+        beginAtZero: false,
+        ticks: { color: "white" },
+        grid: { color: "#444" },
+        title: { display: true, text: `${column} ($)`, color: "white" },
       },
     },
   };
 
-  const fetchForecastData = async (selectedTicker) => {
+  const fetchForecastData = async () => {
+    setLoading(true);
     try {
-      const response = await fetch(`http://localhost:5001/forecast?ticker=${selectedTicker}`);
-      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-      const jsonData = await response.json();
-      if (jsonData.forecast) {
-        const { months, revenues } = jsonData.forecast;
-        setChartData({
-          labels: months,
-          datasets: [
-            {
-              label: 'Revenue ($)',
-              data: revenues,
-              borderColor: 'rgba(75, 192, 192, 1)',
-              backgroundColor: 'rgba(75, 192, 192, 0.2)',
-              borderWidth: 2,
-              tension: 0.4,
-              fill: true,
-            },
-          ],
-        });
+      const response = await fetch(
+        `http://localhost:5001/data?ticker=${ticker.toUpperCase()}&column=${column}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (!response.ok) {
+        const errorDetails = await response.json();
+        throw new Error(
+          errorDetails.error || `HTTP error! Status: ${response.status}`
+        );
       }
+
+      const jsonData = await response.json();
+      const dataValues = jsonData.data?.[column];
+
+      if (!dataValues || dataValues.length === 0) {
+        throw new Error(
+          "No data found for the specified column. Please check the ticker and column values."
+        );
+      }
+
+      console.log("Received data:", jsonData);
+
+      setChartData({
+        labels: Array.from({ length: dataValues.length }, (_, i) => i + 1),
+        datasets: [
+          {
+            label: `${column} ($)`,
+            data: dataValues,
+            borderColor: "blue",
+            backgroundColor: "rgba(0, 0, 255, 0.2)",
+            borderWidth: 2,
+            tension: 0.4,
+            fill: true,
+          },
+        ],
+      });
     } catch (error) {
-      console.error('Error fetching forecast data:', error);
+      console.error("Error fetching forecast data:", error);
+
+      if (error.message.includes("NetworkError")) {
+        alert(
+          "Network error occurred. Please check your internet connection and try again."
+        );
+      } else {
+        alert(
+          error.message ||
+            "Error fetching forecast data. Please try again later."
+        );
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleTickerChange = async (selectedTicker) => {
-    if (isCooldown) return;
-    setTicker(selectedTicker);
-    await fetchForecastData(selectedTicker);
+  useEffect(() => {
+    fetchForecastData();
+  }, [ticker, column]);
 
+  const handleTickerSubmit = async () => {
+    if (isCooldown || loading) return;
+    setTicker(inputTicker || ticker);
+    await fetchForecastData();
     setIsCooldown(true);
     setTimeout(() => setIsCooldown(false), 1000);
   };
 
-  useEffect(() => {
-    const initializeChartData = async () => {
-      await fetchForecastData(ticker);
-    };
-    initializeChartData();
-  }, []);
-
-  const stockColumns = ['Open', 'High', 'Low', 'Close'];
+  const handleColumnChange = async (selectedColumn) => {
+    if (isCooldown || loading) return;
+    setColumn(selectedColumn);
+    await fetchForecastData();
+    setIsCooldown(true);
+    setTimeout(() => setIsCooldown(false), 1000);
+  };
 
   return (
     <div className="chart-container">
-      <h2 className="h2" style={{ color: 'white', marginTop: '100px' }}>Select a Stock Column</h2>
-      <div className="button-container">
-        {stockColumns.map((maangTicker) => (
+      <h2 style={{ marginTop: "70px", color: "white" }}>Enter Stock Ticker</h2>
+      <input
+        type="text"
+        value={inputTicker}
+        onChange={(e) => setInputTicker(e.target.value)}
+        placeholder="Enter ticker, e.g., AAPL"
+        className="ticker-input"
+      />
+      <button
+        style={{ marginLeft: "20px" }}
+        className="submit-button"
+        onClick={handleTickerSubmit}
+        disabled={isCooldown || loading}
+      >
+        Submit
+      </button>
+
+      <div className="button-container" style={{ marginTop: "20px" }}>
+        {["Open", "High", "Low", "Close", "Adj Close", "Volume"].map((col) => (
           <button
-            key={maangTicker}
-            onClick={() => handleTickerChange(maangTicker)}
-            disabled={isCooldown}
-            className={`ticker-button ${isCooldown ? 'disabled' : ''}`}
+            key={col}
+            onClick={() => handleColumnChange(col)}
+            disabled={isCooldown || loading}
+            className={`ticker-button ${column === col ? "active" : ""} ${
+              isCooldown || loading ? "disabled" : ""
+            }`}
           >
-            {maangTicker}
+            {col}
           </button>
         ))}
       </div>
-      <div className="line-chart">
-        <Line data={chartData} options={options} />
-      </div>
+
+      {loading ? (
+        <div className="loading-indicator"></div>
+      ) : (
+        <div className="line-chart">
+          <Line data={chartData} options={options} />
+        </div>
+      )}
     </div>
   );
 };
 
-export default LineChartVis;
+export default LineChart;

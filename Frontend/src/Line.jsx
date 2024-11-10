@@ -144,7 +144,7 @@ const LineChart = () => {
       </div>
 
       {loading ? (
-        <div className="loading-indicator">Loading...</div>
+        <div className="loading-indicator"></div>
       ) : (
         <div className="line-chart">
           <Line data={chartData} options={options} />
