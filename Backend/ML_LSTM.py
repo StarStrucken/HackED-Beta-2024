@@ -145,7 +145,6 @@ def main():
     
     future_pred = predictor.predict_future(model, last_sequence, 7, train_mean, train_std)
     
-    # Get predictions dictionary directly without plotting
     predictions_dict = predictor.get_predictions_dict(future_dates, future_pred)
     
     print("\nPredictions dictionary:")

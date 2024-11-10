@@ -23,7 +23,8 @@ ChartJS.register(
 );
 
 const LineChart = () => {
-  const [ticker, setTicker] = useState("META");
+  const [ticker, setTicker] = useState("META"); // Displayed ticker
+  const [currentTicker, setCurrentTicker] = useState("META"); 
   const [inputTicker, setInputTicker] = useState(""); 
   const [column, setColumn] = useState("Adj Close");
   const [chartData, setChartData] = useState({
@@ -47,16 +48,12 @@ const LineChart = () => {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: {
-        display: false,
-      },
+      legend: { display: false },
       title: {
         display: true,
         text: `Forecast for ${ticker.toUpperCase()} - ${column}`,
         color: "white",
-        font: {
-          size: 18,
-        },
+        font: { size: 18 },
       },
     },
     scales: {
@@ -78,7 +75,7 @@ const LineChart = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:5001/data?ticker=${ticker.toUpperCase()}&column=${column}`,
+        `http://localhost:5001/data?ticker=${currentTicker.toUpperCase()}&column=${column}`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -87,18 +84,14 @@ const LineChart = () => {
 
       if (!response.ok) {
         const errorDetails = await response.json();
-        throw new Error(
-          errorDetails.error || `HTTP error! Status: ${response.status}`
-        );
+        throw new Error(errorDetails.error || `HTTP error! Status: ${response.status}`);
       }
 
       const jsonData = await response.json();
       const dataValues = jsonData.data?.[column];
 
       if (!dataValues || dataValues.length === 0) {
-        throw new Error(
-          "No data found for the specified column. Please check the ticker and column values."
-        );
+        throw new Error("No data found for the specified column.");
       }
 
       console.log("Received data:", jsonData);
@@ -117,19 +110,10 @@ const LineChart = () => {
           },
         ],
       });
+      setTicker(currentTicker); 
     } catch (error) {
       console.error("Error fetching forecast data:", error);
-
-      if (error.message.includes("NetworkError")) {
-        alert(
-          "Network error occurred. Please check your internet connection and try again."
-        );
-      } else {
-        alert(
-          error.message ||
-            "Error fetching forecast data. Please try again later."
-        );
-      }
+      alert("Error fetching forecast data. Please check the ticker and try again.");
     } finally {
       setLoading(false);
     }
@@ -141,8 +125,7 @@ const LineChart = () => {
 
   const handleTickerSubmit = async () => {
     if (isCooldown || loading) return;
-    setTicker(inputTicker || ticker);
-    await fetchForecastData();
+    setCurrentTicker(inputTicker || ticker); 
     setIsCooldown(true);
     setTimeout(() => setIsCooldown(false), 1000);
   };

@@ -103,12 +103,13 @@ async def post_visualization_data():
 
     try:
         stock_data = await fetch_stock_data_async(identifier, columns)
-        if stock_data.empty: 
-            return jsonify({'error': 'No data found'}), 404
-        return jsonify({'data': stock_data.to_dict(orient="list")}), 200
+        if stock_data.empty:
+            return jsonify({"error": "No data found"}), 404
+        return jsonify({"data": stock_data.to_dict(orient="list")}), 200
     except Exception as e:
         print(f"Exception occurred: {e}")
-        return jsonify({'error': str(e)}), 500
+        return jsonify({"error": str(e)}), 500
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001, debug=True)
