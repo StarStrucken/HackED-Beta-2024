@@ -43,6 +43,7 @@ const LineChart = () => {
     ],
   });
   const [isCooldown, setIsCooldown] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const options = {
     responsive: true,
@@ -76,21 +77,28 @@ const LineChart = () => {
   };
 
   const fetchForecastData = async (selectedTicker) => {
-    console.log(selectedTicker);
+    console.log("Fetching data for ticker:", selectedTicker);
+    setLoading(true);
     try {
       const response = await fetch(
         `http://localhost:5001/predict?ticker=${selectedTicker}`
       );
-      if (!response.ok)
+      if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
+      }
       const jsonData = await response.json();
-      if (jsonData.forecast) {
+      console.log("Received data:", jsonData);  // Debugging: Log the raw response
+
+      // Check if 'forecast' exists and is an object
+      if (jsonData.forecast && typeof jsonData.forecast === "object") {
         const forecastData = jsonData.forecast; // Assuming the forecast data is under the 'forecast' key
+        const tradingDay = Object.keys(forecastData); // Extract dates (keys)
+        const adjClose = Object.values(forecastData); // Extract adjusted close prices (values)
 
-        // Extract dates and adjusted close prices from the forecast data
-        const tradingDay = Object.keys(forecastData); // Get the dates (keys)
-        const adjClose = Object.values(forecastData); // Get the adjusted close prices (values)
+        console.log("Dates:", tradingDay); // Debugging: Log dates
+        console.log("Adjusted Close:", adjClose); // Debugging: Log prices
 
+        // Update chart data with received data
         setChartData({
           labels: tradingDay, // Set the labels (dates) for the x-axis
           datasets: [
@@ -105,17 +113,20 @@ const LineChart = () => {
             },
           ],
         });
+      } else {
+        console.error("Invalid forecast data structure");
       }
     } catch (error) {
       console.error("Error fetching forecast data:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleTickerChange = async (selectedTicker) => {
-    if (isCooldown) return;
+    if (isCooldown || loading) return;
     setTicker(selectedTicker);
     await fetchForecastData(selectedTicker);
-
     setIsCooldown(true);
     setTimeout(() => setIsCooldown(false), 1000);
   };
@@ -130,16 +141,21 @@ const LineChart = () => {
           <button
             key={maangTicker}
             onClick={() => handleTickerChange(maangTicker)}
-            disabled={isCooldown}
-            className={`ticker-button ${isCooldown ? "disabled" : ""}`}
+            disabled={isCooldown || loading}
+            className={`ticker-button ${isCooldown || loading ? "disabled" : ""}`}
           >
             {maangTicker}
           </button>
         ))}
       </div>
-      <div className="line-chart">
-        <Line data={chartData} options={options} />
-      </div>
+
+      {loading ? (
+        <div className="loading-indicator">Loading...</div>
+      ) : (
+        <div className="line-chart">
+          <Line data={chartData} options={options} />
+        </div>
+      )}
     </div>
   );
 };
