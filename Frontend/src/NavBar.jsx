@@ -2,7 +2,9 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { DiCodeigniter } from "react-icons/di";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import CustomNavDropdown from "./CustomNavDropDown";
+import "./NavBar.css";
+
 export default function NavBar() {
   const goToVisualization = () => {
     window.location.href = "/visualization";
@@ -39,7 +41,7 @@ export default function NavBar() {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  marginRight: "920px",
+                  marginRight: "910px",
                   fontSize: "30px",
                   fontFamily: "monospace",
                   marginTop: "5px",
@@ -82,37 +84,7 @@ export default function NavBar() {
               </p>
             </Nav.Link>
 
-            <NavDropdown
-              title="About"
-              id="about-dropdown"
-              style={{
-                fontSize: "20px",
-                fontFamily: "monospace",
-                marginTop: "10px",
-                color: "white",
-                height: "40px",
-              }}
-            >
-              <NavDropdown.Item
-                style={{ fontSize: "20px", fontFamily: "monospace" }}
-                href="#tech-stack"
-              >
-                <Nav.Link href="#tech-stack">Tech Stack</Nav.Link>
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-
-              <NavDropdown.Item
-                style={{
-                  fontSize: "20px",
-                  fontFamily: "monospace",
-                  marginBottom: "10px",
-                }}
-                href="#team"
-              >
-                <Nav.Link href="#team">Team</Nav.Link>
-              </NavDropdown.Item>
-              
-            </NavDropdown>
+            <CustomNavDropdown />
           </Nav>
         </div>
       </Navbar>
