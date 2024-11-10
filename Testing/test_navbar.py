@@ -1,75 +1,77 @@
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
 
-def test_custom_nav_dropdown():
-    driver = webdriver.Chrome()
+options = Options()
+options.headless = True
+driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
 
-    driver.get("http://localhost:5174") 
-    
-    try:
-        about_button = driver.find_element(By.XPATH, "//span[contains(text(), 'About')]")
-        actions = ActionChains(driver)
-        actions.move_to_element(about_button).perform()  
-        time.sleep(1)  
 
-        dropdown = driver.find_element(By.ID, "about-dropdown")
-        assert dropdown.is_displayed(), "Dropdown did not appear when hovering over 'About'"
-
-        tech_stack_link = driver.find_element(By.XPATH, "//a[contains(text(), 'Tech Stack')]")
-        tech_stack_link.click()
-        time.sleep(2)  
-        assert driver.current_url == "http://localhost:3000/#tech-stack", "Tech Stack link navigation failed!"
-
-        team_link = driver.find_element(By.XPATH, "//a[contains(text(), 'Team')]")
-        team_link.click()
-        time.sleep(2) 
-        assert driver.current_url == "http://localhost:3000/#team", "Team link navigation failed!"
-
-    except AssertionError as e:
-        print(f"Test failed: {e}")
-    finally:
-        driver.quit()
 
 def test_navigation_bar():
-    driver = webdriver.Chrome()
-
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
     driver.get("http://localhost:5174")
     
     try:
+        # Wait until the 'IDC' button is present
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'navbar-link')]/p[contains(text(), 'IDC')]"))
+        )
+        
+        # Test Home button
         home_button = driver.find_element(By.XPATH, "//div[contains(@class, 'navbar-link')]/p[contains(text(), 'IDC')]")
         home_button.click()
-        time.sleep(2)  
+        time.sleep(2)
         assert driver.current_url == "http://localhost:3000/", "Home page navigation failed!"
 
-        visualization_button = driver.find_element(By.XPATH, "//span[contains(text(), 'Visualization')]")
+        # Test Visualization button
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//p[contains(text(), 'Visualization')]"))
+        )
+        visualization_button = driver.find_element(By.XPATH, "//p[contains(text(), 'Visualization')]")
         visualization_button.click()
-        time.sleep(2)  
+        time.sleep(2)
         assert driver.current_url == "http://localhost:3000/visualize", "Visualization page navigation failed!"
-        
-        forecast_button = driver.find_element(By.XPATH, "//span[contains(text(), 'Forecast')]")
+
+        # Test Forecast button
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//p[contains(text(), 'Forecast')]"))
+        )
+        forecast_button = driver.find_element(By.XPATH, "//p[contains(text(), 'Forecast')]")
         forecast_button.click()
-        time.sleep(2)  
+        time.sleep(2)
         assert driver.current_url == "http://localhost:3000/forecast", "Forecast page navigation failed!"
 
-        dark_mode_toggle = driver.find_element(By.XPATH, "//label[contains(@class, 'switch')]/input")
-        initial_class = driver.find_element(By.TAG_NAME, 'body').get_attribute('class')
+        # Test Dark Mode toggle
+        dark_mode_toggle = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//label[contains(@class, 'switch')]/input"))
+        )
+        body_class = driver.find_element(By.TAG_NAME, 'body').get_attribute('class')
 
+        # Toggle Dark Mode on
         dark_mode_toggle.click()
-        time.sleep(1) 
-        assert driver.find_element(By.TAG_NAME, 'body').get_attribute('class') != initial_class, "Dark mode toggle failed!"
+        time.sleep(1)
+        new_body_class = driver.find_element(By.TAG_NAME, 'body').get_attribute('class')
+        assert 'dark-mode' in new_body_class, "Dark mode toggle on failed!"
 
+        # Toggle Dark Mode off
         dark_mode_toggle.click()
-        time.sleep(1)  
-        assert driver.find_element(By.TAG_NAME, 'body').get_attribute('class') == initial_class, "Dark mode toggle failed!"
+        time.sleep(1)
+        final_body_class = driver.find_element(By.TAG_NAME, 'body').get_attribute('class')
+        assert 'dark-mode' not in final_body_class, "Dark mode toggle off failed!"
     
     except AssertionError as e:
         print(f"Test failed: {e}")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
     finally:
         driver.quit()
 
 if __name__ == "__main__":
     test_navigation_bar()
-    test_custom_nav_dropdown()

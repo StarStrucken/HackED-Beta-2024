@@ -76,8 +76,12 @@ export default function StartPage() {
             volatility, and investor sentiment on any given day.
           </div>
         </div>
-        <TechStack />
-        <Team />
+        <div id="tech-stack">
+          <TechStack />
+        </div>
+        <div id="team">
+          <Team />
+        </div>
       </div>
     </div>
   );

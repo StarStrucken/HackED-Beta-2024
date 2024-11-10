@@ -1,9 +1,31 @@
 import { useState } from 'react';
-import { NavDropdown, Nav } from 'react-bootstrap';
+import { NavDropdown } from 'react-bootstrap';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './CustomNavDropdown.css';
 
 export default function CustomNavDropdown() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleNavClick = (sectionId) => {
+    if (location.pathname === '/') {
+      // If already on StartPage, scroll directly
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // Navigate to StartPage, then scroll
+      navigate('/');
+      setTimeout(() => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  };
 
   return (
     <div
@@ -12,34 +34,30 @@ export default function CustomNavDropdown() {
       onMouseLeave={() => setIsOpen(false)}
     >
       <NavDropdown
-        title={<span style={{ color: "white" }}>About</span>}
+        title={<span style={{ color: 'white' }}>About</span>}
         id="about-dropdown"
         className="custom-nav-dropdown"
         show={isOpen}
         style={{
-          fontSize: "20px",
-          fontFamily: "monospace",
-          height: "40px"
+          fontSize: '20px',
+          fontFamily: 'monospace',
+          height: '40px',
         }}
       >
         <NavDropdown.Item
-          style={{ fontSize: "20px", fontFamily: "monospace" }}
-          href="#tech-stack"
+          onClick={() => handleNavClick('tech-stack')}
+          style={{ fontSize: '20px', fontFamily: 'monospace' }}
         >
-          <Nav.Link href="#tech-stack">Tech Stack</Nav.Link>
+          Tech Stack
         </NavDropdown.Item>
         <NavDropdown.Divider />
         <NavDropdown.Item
-          style={{
-            fontSize: "20px",
-            fontFamily: "monospace",
-            marginBottom: "10px",
-          }}
-          href="#team"
+          onClick={() => handleNavClick('team')}
+          style={{ fontSize: '20px', fontFamily: 'monospace' }}
         >
-          <Nav.Link href="#team">Team</Nav.Link>
+          Team
         </NavDropdown.Item>
       </NavDropdown>
     </div>
   );
-};
+}
