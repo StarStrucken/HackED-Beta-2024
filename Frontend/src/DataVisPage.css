@@ -11,3 +11,29 @@
     background-image: linear-gradient(#50505a 0%, #001418 100%) !important; 
   }
 
+  .container2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .sbox {
+    background-color: #a8a1a1;
+    opacity: 0.8;
+    position: relative;
+    height: 400px;
+    width: 300px;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-family: monospace;
+    text-align: center;
+    color: whitesmoke;
+    transition: transform 0.2s, color 0.2s;
+  }
+ 
+  .sbox:hover {
+    border: 2px solid whitesmoke;
+    transform: scale(1.1);
+  }
