@@ -85,7 +85,6 @@ const LineChart = () => {
       console.log("Received data:", jsonData);
 
       if (jsonData) {
-        const tradingDay = Object.keys(jsonData);
         const adjClose = Object.values(jsonData);
 
         setChartData({
@@ -116,7 +115,7 @@ const LineChart = () => {
     // Fetch data for "META" on initial load
     console.log("Component mounted, fetching initial data for META");
     fetchForecastData("META");
-  }, []);  // Ensure it only runs once on component mount
+  }, []); 
 
   const handleTickerChange = async (selectedTicker) => {
     if (isCooldown || loading) return;
