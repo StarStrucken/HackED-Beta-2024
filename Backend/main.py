@@ -1,6 +1,9 @@
+"""
+Main Flask app
+"""
+
 from flask import jsonify, request
 import yfinance as yf
-
 from concurrent.futures import ThreadPoolExecutor
 from flask import Flask
 from flask_cors import CORS
@@ -16,6 +19,10 @@ CORS(app)
 
 @app.route("/predict", methods=["GET"])
 async def get_prediction():
+    """
+    Get ticker from model
+    Send forecast
+    """
     predictor = StockPredictor()
     ticker = request.args.get("ticker")
 
@@ -74,6 +81,9 @@ async def get_prediction():
 
 
 async def fetch_stock_data_async(ticker, columns):
+    """
+    Fetch stock data from Yahoo Finance async
+    """
     stock = yf.download(ticker, period="1y")
 
     if not stock.empty:
@@ -84,6 +94,9 @@ async def fetch_stock_data_async(ticker, columns):
 
 @app.route("/data", methods=["GET", "POST"])
 async def post_visualization_data():
+    """
+    Post visualization data for line chart
+    """
     print(f"Request method: {request.method}")
 
     if request.method == "POST":

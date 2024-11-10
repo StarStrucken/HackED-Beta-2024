@@ -1,15 +1,18 @@
+// App component
+
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import StartPage from './StartPage';
 import Forecast from './Forecast';
 import DataVisPage from './DataVisPage';
+import ScrollToTopOnRouteChange from './scroll';
 
+// Function to scroll to a section
 function ScrollToSection() {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
     if (hash) {
-      // Scroll to the section with the ID matching the hash
       const section = document.getElementById(hash.substring(1));
       if (section) {
         section.scrollIntoView({ behavior: 'smooth' });
@@ -24,6 +27,7 @@ function App() {
   return (
     <Router>
       <ScrollToSection />
+      <ScrollToTopOnRouteChange />
       <Routes>
         <Route path="/" element={<StartPage />} />
         <Route path="/forecast" element={<Forecast />} />

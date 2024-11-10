@@ -1,3 +1,5 @@
+// TechStack component
+
 import "./TechStack.css";
 import { FaPython, FaReact } from "react-icons/fa";
 import {

@@ -1,3 +1,5 @@
+// Team component
+
 import "./Team.css";
 import {
   SiTensorflow,
@@ -9,6 +11,7 @@ import {
 } from "react-icons/si";
 import { FaPython, FaReact, FaYahoo } from "react-icons/fa";
 
+// Function to scroll to a section
 function scrollToSection(sectionId) {
   const section = document.getElementById(sectionId);
   if (section) {

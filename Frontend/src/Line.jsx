@@ -1,3 +1,5 @@
+// Line Chart component for Forecast Page
+
 import { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import {
@@ -72,8 +74,9 @@ const LineChart = () => {
     },
   };
 
+  // Function to fetch forecast data from the backend
   const fetchForecastData = async (selectedTicker) => {
-    console.log(`Fetching data for ticker: ${selectedTicker}`); // Debugging line
+    console.log(`Fetching data for ticker: ${selectedTicker}`);
     setLoading(true);
     try {
       const response = await fetch(
@@ -117,6 +120,7 @@ const LineChart = () => {
     fetchForecastData("META");
   }, []); 
 
+  // Function to handle ticker selection
   const handleTickerChange = async (selectedTicker) => {
     if (isCooldown || loading) return;
     setTicker(selectedTicker);

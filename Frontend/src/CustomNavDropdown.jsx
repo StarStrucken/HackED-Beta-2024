@@ -1,3 +1,5 @@
+// CustomNavDropdown component - For About Me 
+
 import { useState } from 'react';
 import { NavDropdown } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -8,6 +10,7 @@ export default function CustomNavDropdown() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Function to handle navigation
   const handleNavClick = (sectionId) => {
     if (location.pathname === '/') {
       // If already on StartPage, scroll directly

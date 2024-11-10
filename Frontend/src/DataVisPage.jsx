@@ -1,3 +1,5 @@
+// Data Visualization Page component
+
 import "./DataVisPage.css";
 import LineChartVis from "./LineChartVis";
 import NavBar from "./NavBar";

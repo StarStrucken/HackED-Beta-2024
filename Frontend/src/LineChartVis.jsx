@@ -1,3 +1,5 @@
+// Line Chart for Visualization Page component
+
 import { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import {
@@ -24,7 +26,7 @@ ChartJS.register(
 
 const LineChart = () => {
   const [ticker, setTicker] = useState("META"); // Displayed ticker
-  const [currentTicker, setCurrentTicker] = useState("META"); 
+  const [currentTicker, setCurrentTicker] = useState("META"); // Current ticker (META by default)
   const [inputTicker, setInputTicker] = useState(""); 
   const [column, setColumn] = useState("Adj Close");
   const [chartData, setChartData] = useState({

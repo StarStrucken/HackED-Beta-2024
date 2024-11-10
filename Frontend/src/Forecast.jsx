@@ -1,3 +1,5 @@
+// Forecast component
+
 import "./Forecast.css";
 import NavBar from "./NavBar";
 import LineChart from "./Line";

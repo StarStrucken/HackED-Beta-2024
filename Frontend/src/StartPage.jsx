@@ -1,3 +1,5 @@
+// StartPage component
+
 import "./StartPage.css";
 import "./DataVisPage";
 import NavBar from "./NavBar";

@@ -1,15 +1,26 @@
+// NavBar component
+
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { DiCodeigniter } from "react-icons/di";
 import CustomNavDropdown from "./CustomNavDropDown";
 import "./NavBar.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export default function NavBar() {
   const navigate = useNavigate();
-  const goToHome = () => navigate("/");
+
+  // Scroll to top when going to StartPage
+  const goToHome = () => {
+    if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate("/");
+    }
+  };
+
   const goToVisualization = () => navigate("/visualize");
   const goToForecast = () => navigate("/forecast");
 
@@ -18,12 +29,14 @@ export default function NavBar() {
     return localStorage.getItem("isDarkMode") === "true";
   });
 
+  // Toggle dark mode
   const handleToggleDarkMode = () => {
     const newDarkMode = !isDarkMode;
     setIsDarkMode(newDarkMode);
     localStorage.setItem("isDarkMode", newDarkMode); // Save to localStorage
   };
 
+  // Apply dark mode class
   useEffect(() => {
     if (isDarkMode) {
       document.body.classList.add("dark-mode");
@@ -40,10 +53,10 @@ export default function NavBar() {
         color: "black",
         padding: "5px 10px",
         display: "flex",
-        justifyContent: "space-between", 
+        justifyContent: "space-between",
         alignItems: "center",
       }}
-      onClick={(e) => e.stopPropagation()} 
+      onClick={(e) => e.stopPropagation()}
     >
       <div style={{ display: "flex", alignItems: "center" }}>
         <div
@@ -60,7 +73,13 @@ export default function NavBar() {
 
         <div
           onClick={goToHome}
-          style={{ cursor: "pointer", display: "flex", alignItems: "center", color: "white", marginLeft: "10px" }}
+          style={{
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            color: "white",
+            marginLeft: "10px",
+          }}
         >
           <p
             className="navbar-link"
@@ -100,7 +119,7 @@ export default function NavBar() {
           <Nav.Link>
             <span
               onClick={goToForecast}
-              style={{ cursor: "pointer", color: "white", fontSize: "20px", }}
+              style={{ cursor: "pointer", color: "white", fontSize: "20px" }}
             >
               <p
                 style={{
