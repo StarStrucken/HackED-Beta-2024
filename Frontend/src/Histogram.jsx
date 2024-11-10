@@ -7,6 +7,7 @@ import { Title } from "chart.js";
 import { Tooltip } from "chart.js";
 import { Legend } from "chart.js";
 import { useEffect, useState } from "react";
+import './Histogram.css';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -136,6 +137,7 @@ const Histogram = () => {
                     margin: "10px",
                     cursor: "pointer",
                 }}
+                className="fetch-data-button"
             >
                 Fetch Data
             </button>

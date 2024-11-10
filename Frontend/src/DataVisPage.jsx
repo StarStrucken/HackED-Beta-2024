@@ -1,5 +1,5 @@
 import "./DataVisPage.css"
-import LineChart from "./Line"
+import LineChartVis from "./LineChartVis"
 import NavBar from "./NavBar"
 import Histogram from "./Histogram"
 
@@ -7,7 +7,7 @@ export default function DataVisPage() {
     return (
         <div className="visualize-page">
             <NavBar />
-            <LineChart />
+            <LineChartVis />
             <Histogram />
         </div>
     )

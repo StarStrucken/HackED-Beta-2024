@@ -7,6 +7,7 @@ import {
   SiSelenium,
   SiFlask,
 } from "react-icons/si";
+import { FaGitAlt } from "react-icons/fa6";
 
 export default function TechStack() {
   return (
@@ -33,6 +34,9 @@ export default function TechStack() {
         </div>
         <div className="icon-wrapper">
           <SiFlask title="Flask" color="white"/>
+        </div>
+        <div className="icon-wrapper">
+          <FaGitAlt title="Git" color="white"/>
         </div>
       </div>
     </div>
