@@ -62,7 +62,7 @@ const LineChart = () => {
       x: {
         ticks: { color: "white" },
         grid: { color: "#444" },
-        title: { display: true, text: "Trading Day", color: "white" },
+        title: { display: true, text: "Trading Day (for a year)", color: "white" },
       },
       y: {
         beginAtZero: false,
