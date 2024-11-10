@@ -103,7 +103,7 @@ const LineChartVis = () => {
 
   return (
     <div className="chart-container">
-      <h2 style={{ color: 'white', marginTop: '100px' }}>Select a Stock Column</h2>
+      <h2 className="h2"style={{  color: 'white', marginTop: '100px' }}>Select a Stock Column</h2>
       <div className="button-container">
         {stockColumns.map((maangTicker) => (
           <button
