@@ -7,7 +7,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<StartPage />} />
-
+        <Route path="/" element={<StartPage />} />
         <Route path="/forecast" element={<Forecast />} />
       </Routes>
     </Router>

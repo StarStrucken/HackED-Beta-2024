@@ -5,6 +5,7 @@ import { DiCodeigniter } from "react-icons/di";
 import CustomNavDropdown from "./CustomNavDropDown";
 import "./NavBar.css";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 export default function NavBar() {
   const navigate = useNavigate();
@@ -12,6 +13,20 @@ export default function NavBar() {
   const goToHome = () => navigate("/");
   const goToVisualization = () => navigate("/visualization");
   const goToForecast = () => navigate("/forecast");
+
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const handleToggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
+    }
+  }, [isDarkMode]);
 
   return (
     <Navbar
@@ -24,11 +39,15 @@ export default function NavBar() {
         justifyContent: "space-between", // Space out left and right sections
         alignItems: "center",
       }}
-      onClick={(e) => e.stopPropagation()} // Prevent unintended click propagation on Navbar
+      onClick={(e) => e.stopPropagation()} // Prevent unintended click propagation on Navbar.
     >
       {/* Left side (logo and title) */}
       <div style={{ display: "flex", alignItems: "center" }}>
-        <div onClick={goToHome} style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
+        <div
+          onClick={goToHome}
+          style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
+          className="navbar-link"
+        >
           <DiCodeigniter
             size={40}
             color="white"
@@ -41,10 +60,10 @@ export default function NavBar() {
           style={{ cursor: "pointer", display: "flex", alignItems: "center", color: "white", marginLeft: "10px" }}
         >
           <p
+            className="navbar-link"
             style={{
               fontSize: "30px",
               fontFamily: "monospace",
-              color: "white",
               marginTop: "10px",
             }}
           >
@@ -67,7 +86,6 @@ export default function NavBar() {
                   fontSize: "20px",
                   fontFamily: "monospace",
                   margin: "0",
-                  color: "white",
                 }}
               >
                 Visualization
@@ -87,7 +105,6 @@ export default function NavBar() {
                   fontSize: "20px",
                   fontFamily: "monospace",
                   margin: "0",
-                  color: "white",
                 }}
               >
                 Forecast
@@ -97,6 +114,16 @@ export default function NavBar() {
 
           <CustomNavDropdown />
         </Nav>
+        <div style={{ marginLeft: "15px", color: "white" }}>
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={isDarkMode}
+              onChange={handleToggleDarkMode}
+            />
+            <span className="slider"></span>
+          </label>
+        </div>
       </div>
     </Navbar>
   );

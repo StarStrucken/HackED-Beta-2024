@@ -1,3 +1,78 @@
 .custom-nav-dropdown .dropdown-toggle::after {
     border-top: 0.3em solid white !important;
   }
+
+  /* Style for the switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3; /* Change the color when checked */
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px); /* Move the switch when checked */
+}
+
+
+/* Specifically target the icon */
+.navbar-link svg {
+  transition: fill 0.3s ease; /* Smooth transition for icon color change */
+  fill: white; /* Default color of the icon */
+}
+
+/* Hover effect for both the icon and the IDC text */
+.navbar-link:hover {
+  color: red; /* Change text color on hover */
+}
+
+/* Hover effect for the icon */
+.navbar-link:hover svg {
+  fill: red; /* Change the icon color on hover */
+}
+
+/* Ensure the icon doesn't inherit underline */
+.navbar-link:hover svg {
+  fill: red; /* Change the icon color on hover, if needed */
+  text-decoration: none; /* Ensure the icon isn't underlined */
+}
+
+
+
+
+
+
