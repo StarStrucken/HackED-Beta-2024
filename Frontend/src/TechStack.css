@@ -1,0 +1,31 @@
+.tech-stack-container {
+  margin-top: 100vh;
+  text-align: center;
+}
+
+.tech-stack {
+  text-align: center;
+  padding: 2rem 0;
+  color: white;
+  font-family: monospace;
+}
+
+
+.icons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  gap: 1.5rem;
+  justify-items: center;
+  padding: 1rem;
+}
+
+.icon-wrapper {
+  font-size: 3rem;
+  color: #4a4a4a;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.icon-wrapper:hover {
+  color: #1e90ff;
+  transform: scale(1.1);
+}

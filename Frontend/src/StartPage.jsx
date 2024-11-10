@@ -3,10 +3,11 @@ import "./StartPage.css"
 import "./DataVisPage"
 import NavBar from "./NavBar";
 import TechStack from "./TechStack";
+import Team from "./Team";
 
 export default function StartPage() {
     return (
-        <div className="page">
+        <div className="page" id="top">
             <NavBar />
             <div>
                 <h1 className="project-title"> Stock Forecasting Tool</h1>
@@ -17,13 +18,15 @@ export default function StartPage() {
                 Additionally, since FAANG stocks are highly volatile and sensitive to market conditions, regulatory changes, and technological advancements, having a reliable forecast can help investors make informed decisions, anticipate market shifts, and capitalize on potential opportunities in the tech sector. 
             </p>
             <h2> </h2>
-                <div class ="flex-container">
+                <div className="flex-container">
                 <div> Something </div>
-                <div class="flex-container2">
+                <div className="flex-container2">
                 <div> Something else </div>
                 </div>
 
                 </div>
+            <TechStack />
+            <Team />
             </div>
             
 
