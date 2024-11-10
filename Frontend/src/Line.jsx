@@ -30,12 +30,12 @@ const LineChart = () => {
       {
         label: "Adj Close ($)",
         data: [],
-        borderColor: "rgba(255, 192, 192, 1)",
-        backgroundColor: "rgba(255, 192, 192, 0.2)",
-        pointBackgroundColor: "rgba(255, 192, 192, 1)",
-        pointBorderColor: "#fff",
-        pointHoverBackgroundColor: "#fff",
-        pointHoverBorderColor: "rgba(75, 0, 192, 1)",
+        borderColor: "red",
+        backgroundColor: "red",
+        pointBackgroundColor: "red",
+        pointBorderColor: "red",
+        pointHoverBackgroundColor: "red",
+        pointHoverBorderColor: "red",
         borderWidth: 2,
         tension: 0.3,
         fill: true,
@@ -68,7 +68,7 @@ const LineChart = () => {
         title: { display: true, text: "Trading Day", color: "white" },
       },
       y: {
-        beginAtZero: true,
+        beginAtZero: false,
         ticks: { color: "white" },
         grid: { color: "#444" },
         title: { display: true, text: "Adj Close ($)", color: "white" },
@@ -90,23 +90,22 @@ const LineChart = () => {
       console.log("Received data:", jsonData);  // Debugging: Log the raw response
 
       // Check if 'forecast' exists and is an object
-      if (jsonData.forecast && typeof jsonData.forecast === "object") {
-        const forecastData = jsonData.forecast; // Assuming the forecast data is under the 'forecast' key
-        const tradingDay = Object.keys(forecastData); // Extract dates (keys)
-        const adjClose = Object.values(forecastData); // Extract adjusted close prices (values)
+      if (jsonData) {
+        const tradingDay = Object.keys(jsonData); // Extract dates (keys)
+        const adjClose = Object.values(jsonData); // Extract adjusted close prices (values)
 
         console.log("Dates:", tradingDay); // Debugging: Log dates
         console.log("Adjusted Close:", adjClose); // Debugging: Log prices
 
         // Update chart data with received data
         setChartData({
-          labels: tradingDay, // Set the labels (dates) for the x-axis
+          labels: [1, 2, 3, 4, 5, 6, 7], // Set the labels (dates) for the x-axis
           datasets: [
             {
               label: "Adj Close ($)",
               data: adjClose, // Set the adjusted close prices for the y-axis
-              borderColor: "rgba(75, 192, 192, 1)",
-              backgroundColor: "rgba(75, 192, 192, 0.2)",
+              borderColor: "blue",
+              backgroundColor: "blue",
               borderWidth: 2,
               tension: 0.4,
               fill: true,
