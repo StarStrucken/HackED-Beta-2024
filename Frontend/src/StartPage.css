@@ -41,6 +41,11 @@ body {
   color: white !important; /* Keep the text white */
 }
 
+.project-title {
+
+  margin-top: 100px;
+}
+
 .nav-link {
   cursor: default;
 }

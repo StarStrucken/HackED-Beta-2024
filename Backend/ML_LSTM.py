@@ -13,13 +13,6 @@ class StockPredictor:
             ['Netflix-NFLX', 'NFLX'],
             ['Google-GOOGL', 'GOOGL'],
         ]
-        
-    def display_menu(self):
-        print("***Replace this with backend***")
-        return "META"  # Default return for now, will be replaced by backend
-    
-    def get_user_selection(self):
-        return self.display_menu()  # Simply return the result from display_menu
     
     def download_stock_data(self, ticker):
         try:
@@ -159,6 +152,3 @@ def main():
     print(predictions_dict)
     
     return predictions_dict
-
-if __name__ == "__main__":
-    main()
