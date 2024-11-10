@@ -26,8 +26,8 @@
 }
 
 .dark-mode .box-3 {
-  background-color: #333333 !important; /* Dark background for boxes */
-  color: white !important; /* Ensure text inside boxes is white */
+  background-color: #333333 !important; 
+  color: white !important; 
 }
 
 .chart-container {

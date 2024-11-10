@@ -89,6 +89,7 @@ export default function NavBar() {
                   fontSize: "20px",
                   fontFamily: "monospace",
                   margin: "0",
+                  marginLeft: "10px",
                 }}
               >
                 Visualization
@@ -99,7 +100,7 @@ export default function NavBar() {
           <Nav.Link>
             <span
               onClick={goToForecast}
-              style={{ cursor: "pointer", color: "white", fontSize: "20px" }}
+              style={{ cursor: "pointer", color: "white", fontSize: "20px", }}
             >
               <p
                 style={{
@@ -117,7 +118,7 @@ export default function NavBar() {
 
           <CustomNavDropdown />
         </Nav>
-        <div style={{ marginLeft: "15px", color: "white" }}>
+        <div style={{ marginLeft: "40px", color: "white" }}>
           <label className="switch">
             <input
               type="checkbox"
