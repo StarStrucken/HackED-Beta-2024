@@ -2,7 +2,6 @@
     border-top: 0.3em solid white !important;
   }
 
-  /* Style for the switch */
 .switch {
   position: relative;
   display: inline-block;
@@ -41,34 +40,31 @@
 }
 
 input:checked + .slider {
-  background-color: #2196F3; /* Change the color when checked */
+  background-color: #2196F3; 
 }
 
 input:checked + .slider:before {
-  transform: translateX(26px); /* Move the switch when checked */
+  transform: translateX(26px); 
 }
 
 
-/* Specifically target the icon */
 .navbar-link svg {
-  transition: fill 0.3s ease; /* Smooth transition for icon color change */
-  fill: white; /* Default color of the icon */
+  transition: fill 0.3s ease; 
+  fill: white; 
 }
 
-/* Hover effect for both the icon and the IDC text */
+
 .navbar-link:hover {
-  color: red; /* Change text color on hover */
+  color: red; 
 }
 
-/* Hover effect for the icon */
 .navbar-link:hover svg {
-  fill: red; /* Change the icon color on hover */
+  fill: red; 
 }
 
-/* Ensure the icon doesn't inherit underline */
 .navbar-link:hover svg {
-  fill: red; /* Change the icon color on hover, if needed */
-  text-decoration: none; /* Ensure the icon isn't underlined */
+  fill: red; 
+  text-decoration: none; 
 }
 
 

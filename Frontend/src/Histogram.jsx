@@ -6,10 +6,10 @@ import './Histogram.css';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const Histogram = () => {
-    const [identifier, setIdentifier] = useState(""); // State for identifier input
+    const [identifier, setIdentifier] = useState(""); 
     const [debouncedIdentifier, setDebouncedIdentifier] = useState("");
-    const [data, setData] = useState(null); // Use null to indicate no data
-    const [chartKey, setChartKey] = useState(0); // Key to force re-render
+    const [data, setData] = useState(null); 
+    const [chartKey, setChartKey] = useState(0);
 
     const options = {
         maintainAspectRatio: false,
@@ -50,7 +50,6 @@ const Histogram = () => {
         },
     };
 
-    // Debounce effect to reduce API calls
     useEffect(() => {
         const handler = setTimeout(() => {
             setDebouncedIdentifier(identifier);
@@ -98,12 +97,9 @@ const Histogram = () => {
                             },
                         ],
                     });
-
-                    // Force chart re-render by changing the key
                     setChartKey((prevKey) => prevKey + 1);
                 }
             } else {
-                // Set to empty placeholder data if no valid data
                 setData({
                     labels: ["Placeholder"],
                     datasets: [
@@ -122,7 +118,6 @@ const Histogram = () => {
         }
     };
 
-    // Fetch data when the debounced identifier changes
     useEffect(() => {
         fetchData();
     }, [debouncedIdentifier]);
@@ -144,7 +139,6 @@ const Histogram = () => {
                 }}
             />
             <div>
-                {/* Conditionally render Bar only if data is not null */}
                 {data && (
                     <Bar
                         key={chartKey}

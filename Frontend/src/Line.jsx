@@ -23,7 +23,7 @@ ChartJS.register(
 );
 
 const LineChart = () => {
-  const [ticker, setTicker] = useState("");
+  const [ticker, setTicker] = useState("META");
   const [chartData, setChartData] = useState({
     labels: [],
     datasets: [
@@ -32,10 +32,6 @@ const LineChart = () => {
         data: [],
         borderColor: "red",
         backgroundColor: "red",
-        pointBackgroundColor: "red",
-        pointBorderColor: "red",
-        pointHoverBackgroundColor: "red",
-        pointHoverBorderColor: "red",
         borderWidth: 2,
         tension: 0.3,
         fill: true,
@@ -43,7 +39,7 @@ const LineChart = () => {
     ],
   });
   const [isCooldown, setIsCooldown] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const options = {
     responsive: true,
@@ -77,33 +73,27 @@ const LineChart = () => {
   };
 
   const fetchForecastData = async (selectedTicker) => {
-    console.log("Fetching data for ticker:", selectedTicker);
+    console.log(`Fetching data for ticker: ${selectedTicker}`); // Debugging line
     setLoading(true);
     try {
       const response = await fetch(
         `http://localhost:5001/predict?ticker=${selectedTicker}`
       );
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+      
       const jsonData = await response.json();
-      console.log("Received data:", jsonData);  // Debugging: Log the raw response
+      console.log("Received data:", jsonData);
 
-      // Check if 'forecast' exists and is an object
       if (jsonData) {
-        const tradingDay = Object.keys(jsonData); // Extract dates (keys)
-        const adjClose = Object.values(jsonData); // Extract adjusted close prices (values)
+        const tradingDay = Object.keys(jsonData);
+        const adjClose = Object.values(jsonData);
 
-        console.log("Dates:", tradingDay); // Debugging: Log dates
-        console.log("Adjusted Close:", adjClose); // Debugging: Log prices
-
-        // Update chart data with received data
         setChartData({
-          labels: [1, 2, 3, 4, 5, 6, 7], // Set the labels (dates) for the x-axis
+          labels: [1, 2, 3, 4, 5, 6, 7],
           datasets: [
             {
               label: "Adj Close ($)",
-              data: adjClose, // Set the adjusted close prices for the y-axis
+              data: adjClose,
               borderColor: "blue",
               backgroundColor: "blue",
               borderWidth: 2,
@@ -121,6 +111,12 @@ const LineChart = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    // Fetch data for "META" on initial load
+    console.log("Component mounted, fetching initial data for META");
+    fetchForecastData("META");
+  }, []);  // Ensure it only runs once on component mount
 
   const handleTickerChange = async (selectedTicker) => {
     if (isCooldown || loading) return;
@@ -141,7 +137,7 @@ const LineChart = () => {
             key={maangTicker}
             onClick={() => handleTickerChange(maangTicker)}
             disabled={isCooldown || loading}
-            className={`ticker-button ${isCooldown || loading ? "disabled" : ""}`}
+            className={`ticker-button ${ticker === maangTicker ? "active" : ""} ${isCooldown || loading ? "disabled" : ""}`}
           >
             {maangTicker}
           </button>
