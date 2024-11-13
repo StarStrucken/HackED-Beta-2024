@@ -1,4 +1,4 @@
-# **HackEd Beta 2024 Project: Tech Stack**
+# **HackEd Beta 2024 Project: myFinanceForecaster**
 ## * Forked from original repo from our team *
 
 This project is a sophisticated full-stack web application designed to forecast stock or economic data trends, offering users real-time visual insights into projected metrics. It leverages a comprehensive technology stack to support backend processing, model training, interactive data visualization, and automated testing. Altogether, this stack provides a robust framework for handling data-driven forecasts, efficient processing of time-series data, and creating a polished, user-friendly interface with accurate data visualizations. Each technology contributes to a highly interactive and reliable forecasting tool for users interested in stock and economic trends.
